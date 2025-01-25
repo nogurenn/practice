@@ -1,0 +1,159 @@
+[
+    {
+        "Type": "AccountCreated",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440000-John",
+        "Payload": {
+            "Balance": 1000
+        }
+    },
+    {
+        "Type": "AccountChargeReceived",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440000-John",
+        "Payload": {
+            "Amount": 500
+        }
+    },
+    {
+        "Type": "AccountChargeReceived",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440000-John",
+        "Payload": {
+            "Amount": 500
+        }
+    },
+    {
+        "Type": "AccountPaymentReceived",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440000-John",
+        "Payload": {
+            "Amount": 2000
+        }
+    },
+    {
+        "Type": "AccountCreated",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440001-Jane",
+        "Payload": {
+            "Balance": 2000
+        }
+    },
+    {
+        "Type": "AccountPaymentReceived",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440001-Jane",
+        "Payload": {
+            "Amount": 1000
+        }
+    },
+    {
+        "Type": "AccountPaymentReceived",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440001-Jane",
+        "Payload": {
+            "Amount": 1200
+        }
+    },
+    {
+        "Type": "AccountCreated",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440002-Bob",
+        "Payload": {
+            "Balance": 2000
+        }
+    },
+    {
+        "Type": "AccountChargeReceived",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440002-Bob",
+        "Payload": {
+            "Amount": 500
+        }
+    },
+    {
+        "Type": "AccountPaymentReceived",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440002-Bob",
+        "Payload": {
+            "Amount": 1000
+        }
+    },
+    {
+        "Type": "AccountPaymentReceived",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440002-Bob",
+        "Payload": {
+            "Amount": 1000
+        }
+    },
+    {
+        "Type": "AccountCreated",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440003-Alice",
+        "Payload": {
+            "Balance": 1000
+        }
+    },
+    {
+        "Type": "AccountRecalled",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440003-Alice",
+        "Payload": {}
+    },
+    {
+        "Type": "AccountCreated",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440004-Mike",
+        "Payload": {
+            "Balance": 1500
+        }
+    },
+    {
+        "Type": "AccountChargeReceived",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440004-Mike",
+        "Payload": {
+            "Amount": 300
+        }
+    },
+    {
+        "Type": "AccountPaymentReceived",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440004-Mike",
+        "Payload": {
+            "Amount": 700
+        }
+    },
+    {
+        "Type": "AccountCreated",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440005-Sara",
+        "Payload": {
+            "Balance": 2500
+        }
+    },
+    {
+        "Type": "AccountChargeReceived",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440005-Sara",
+        "Payload": {
+            "Amount": 800
+        }
+    },
+    {
+        "Type": "AccountPaymentReceived",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440005-Sara",
+        "Payload": {
+            "Amount": 1200
+        }
+    },
+    {
+        "Type": "AccountRecalled",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440005-Sara",
+        "Payload": {}
+    },
+    {
+        "Type": "AccountCreated",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440006-Tom",
+        "Payload": {
+            "Balance": 3000
+        }
+    },
+    {
+        "Type": "AccountChargeReceived",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440006-Tom",
+        "Payload": {
+            "Amount": 1000
+        }
+    },
+    {
+        "Type": "AccountPaymentReceived",
+        "AccountID": "550e8400-e29b-41d4-a716-446655440006-Tom",
+        "Payload": {
+            "Amount": 1500
+        }
+    }
+]
