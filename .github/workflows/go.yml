@@ -6,8 +6,6 @@ on:
     paths:
       - 'simple-event-worker/**'
   pull_request:
-    paths:
-      - 'simple-event-worker/**'
 
 jobs:
   test:
