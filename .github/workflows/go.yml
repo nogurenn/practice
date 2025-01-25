@@ -1,19 +1,36 @@
-name: Go
-on: [push]
+name: Test simple-event-worker
+
+on:
+  push:
+    paths:
+      - 'simple-event-worker/**'
+  pull_request:
+    paths:
+      - 'simple-event-worker/**'
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.23.x'
-      - name: Install dependencies
-        run: go mod tidy
-      - name: Test
-        run: go test -v ./...
-      - name: Run
-        run: (cd simple-event-runner && go run cmd/main.go)
+    # Step 1: Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Step 2: Set up Go environment
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.23.x'
+
+    # Step 3: Navigate to the submodule and install dependencies
+    - name: Install dependencies for simple-event-worker
+      working-directory: ./simple-event-worker
+      run: |
+        go mod tidy
+
+    # Step 4: Run tests in the submodule
+    - name: Run tests for simple-event-worker
+      working-directory: ./simple-event-worker
+      run: |
+        go test -v ./...
