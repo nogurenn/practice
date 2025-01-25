@@ -1,6 +1,7 @@
 name: Test simple-event-worker
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'simple-event-worker/**'
