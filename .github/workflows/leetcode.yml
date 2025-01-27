@@ -1,4 +1,4 @@
-name: Run Tests for Leetcode Submodule
+name: Test leetcode
 
 on:
   workflow_dispatch:

@@ -1,4 +1,4 @@
-name: Run Tests for Simple Event Worker
+name: Test simple-event-worker
 
 on:
   workflow_dispatch:
