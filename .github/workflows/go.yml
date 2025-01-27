@@ -1,4 +1,4 @@
-name: Test simple-event-worker
+name: Test submodules
 
 on:
   workflow_dispatch:
@@ -35,7 +35,8 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ${{ matrix.submodule }}/.cache/go-build
-        key: go-mod-${{ matrix.submodule }}-${{ runner.os }}-${{ hashFiles('${{ matrix.submodule }}/go.mod', '${{ matrix.submodule }}/go.sum') }}
+        key: go-mod-${{ matrix.submodule }}-${{ runner.os }}-${{ hashFiles(format('{0}/go.mod', matrix.submodule), format('{0}/go.sum', matrix.submodule)) }}
+        # key: go-mod-${{ matrix.submodule }}-${{ runner.os }}-${{ hashFiles('${{ matrix.submodule }}/go.mod', '${{ matrix.submodule }}/go.sum') }}
         restore-keys: |
           go-mod-${{ matrix.submodule }}-${{ runner.os }}-
 
