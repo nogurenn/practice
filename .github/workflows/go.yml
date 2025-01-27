@@ -2,18 +2,7 @@ name: Test simple-event-worker
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'simple-event-worker/**/*.go'
-      - 'simple-event-worker/**/*.json'
-      - '.github/**'
-      - 'go.mod'
-      - 'go.sum'
   pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
     paths:
       - 'simple-event-worker/**/*.go'
       - 'simple-event-worker/**/*.json'
