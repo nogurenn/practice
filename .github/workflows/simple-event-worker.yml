@@ -1,0 +1,41 @@
+name: Run Tests for Simple Event Worker
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'simple-event-worker/**/*.go'
+      - 'simple-event-worker/**/*.json'
+      - 'simple-event-worker/go.mod'
+      - 'simple-event-worker/go.sum'
+      - '.github/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23.x' 
+          cache: true
+          cache-dependency-path: |
+            simple-event-worker/go.mod
+            simple-event-worker/go.sum
+
+      - name: Install dependencies for simple-event-worker
+        run: |
+          cd simple-event-worker
+          go mod tidy
+          go mod download
+
+      - name: Run Tests for simple-event-worker
+        run: |
+          cd simple-event-worker
+          go test ./...
