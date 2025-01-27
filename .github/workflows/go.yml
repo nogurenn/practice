@@ -34,7 +34,9 @@ jobs:
     - name: Cache Go modules for ${{ matrix.submodule }}
       uses: actions/cache@v4
       with:
-        path: ${{ matrix.submodule }}/.cache/go-build
+        path: |
+          ${{ matrix.submodule }}/.cache/go-build
+          ${{ matrix.submodule }}/pkg/mod
         key: go-mod-${{ matrix.submodule }}-${{ runner.os }}-${{ hashFiles(format('{0}/go.mod', matrix.submodule), format('{0}/go.sum', matrix.submodule)) }}
         restore-keys: |
           go-mod-${{ matrix.submodule }}-${{ runner.os }}-
