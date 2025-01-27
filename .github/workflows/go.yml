@@ -35,6 +35,8 @@ jobs:
 
     # Navigate to the submodule and install dependencies
     - name: Install dependencies for ${{ matrix.submodule }}
+      if: |
+        github.event.pull_request.head.ref == 'refs/heads/${{ matrix.submodule }}'
       run: |
         cd ${{ matrix.submodule }}
         go mod tidy
@@ -43,5 +45,7 @@ jobs:
     # Run tests in the submodule
     - name: Run tests for ${{ matrix.submodule }}
       working-directory: ./${{ matrix.submodule }}
+      if: |
+        github.event.pull_request.head.ref == 'refs/heads/${{ matrix.submodule }}'
       run: |
         go test -v ./...
