@@ -29,6 +29,13 @@ jobs:
       uses: actions/setup-go@v5
       with:
         go-version: '1.23.x'
+    
+    - name: Verify Go build and module cache directories
+      run: |
+        echo "Checking build cache: $HOME/.cache/go-build"
+        echo "Checking module cache: $HOME/go/pkg/mod"
+        ls -l $HOME/.cache/go-build
+        ls -l $HOME/go/pkg/mod
 
     # Step 3: Cache dependencies
     - name: Cache Go modules for ${{ matrix.submodule }}
