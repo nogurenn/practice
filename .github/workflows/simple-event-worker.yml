@@ -8,7 +8,7 @@ on:
       - 'simple-event-worker/**/*.json'
       - 'simple-event-worker/go.mod'
       - 'simple-event-worker/go.sum'
-      - '.github/**'
+      - '.github/workflows/simple-event-worker.yml'
 
 jobs:
   test:

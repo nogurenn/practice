@@ -5,6 +5,7 @@ on:
   pull_request:
     paths:
       - 'leetcode/**/*.go'
+      - '.github/workflows/leetcode.yml'
 
 jobs:
   test:
