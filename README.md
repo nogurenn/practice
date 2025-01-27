@@ -1,6 +1,6 @@
 # practice-go
 
-Programs I write for practice
+Programs I write for practice. Visit the python repo [here](https://github.com/nogurenn/practice-python).
 
 ## Top-level commands
 
