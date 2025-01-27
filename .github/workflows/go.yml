@@ -2,10 +2,13 @@ name: Test simple-event-worker
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'simple-event-worker/**'
   pull_request:
+    paths:
+      - 'simple-event-worker/**/*.go'
+      - 'simple-event-worker/**/*.json'
+      - '.github/**'
+      - 'go.mod'
+      - 'go.sum'
 
 jobs:
   test:
