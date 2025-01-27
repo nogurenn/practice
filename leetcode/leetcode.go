@@ -6,6 +6,11 @@ import (
 	mapset "github.com/deckarep/golang-set/v2"
 )
 
+const (
+	// ASCII values
+	asciiZero = 48
+)
+
 // #1 Two Sum
 func TwoSum(nums []int, target int) []int {
 	hashmap := make(map[int]int)
