@@ -1,38 +1,51 @@
-name: Test simple-event-worker
+name: Test submodules
 
 on:
   workflow_dispatch:
   pull_request:
     paths:
       - 'simple-event-worker/**/*.go'
-      - 'simple-event-worker/**/*.json'
+      - '**/*.json'
       - '.github/**'
-      - 'go.mod'
-      - 'go.sum'
+      - '**/go.mod'
+      - '**/go.sum'
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        submodule: ['simple-event-worker', 'leetcode']
 
     steps:
-    # Step 1: Checkout the repository
+    # Checkout the repository
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        submodules: true
 
-    # Step 2: Set up Go environment
+    # Set up Go environment
     - name: Set up Go
       uses: actions/setup-go@v5
       with:
         go-version: '1.23.x'
+        cache: true
+        cache-dependency-path: "**/*.sum"
 
-    # Step 3: Navigate to the submodule and install dependencies
-    - name: Install dependencies for simple-event-worker
-      working-directory: ./simple-event-worker
+
+    # Navigate to the submodule and install dependencies
+    - name: Install dependencies for ${{ matrix.submodule }}
+      if: |
+        github.event.pull_request.head.ref == 'refs/heads/${{ matrix.submodule }}'
       run: |
+        cd ${{ matrix.submodule }}
         go mod tidy
+        go mod download
 
-    # Step 4: Run tests in the submodule
-    - name: Run tests for simple-event-worker
-      working-directory: ./simple-event-worker
+    # Run tests in the submodule
+    - name: Run tests for ${{ matrix.submodule }}
+      working-directory: ./${{ matrix.submodule }}
+      if: |
+        github.event.pull_request.head.ref == 'refs/heads/${{ matrix.submodule }}'
       run: |
         go test -v ./...
