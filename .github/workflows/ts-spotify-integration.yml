@@ -27,8 +27,6 @@ jobs:
         with:
           node-version: '22.x'
           cache: 'npm'
-
-      - name: Install dependencies for spotify-integration
         run: |
           cd typescript/spotify-integration
           npm install
