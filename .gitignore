@@ -32,6 +32,8 @@ go.work.sum
 ./
 
 built/*
+typescript/**/dist/*
+node_modules/
 
 tests/cases/rwc/*
 
