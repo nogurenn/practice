@@ -6,6 +6,8 @@ on:
     paths:
       - 'golang/leetcode/**/*.go'
       - '.github/workflows/leetcode.yml'
+  merge_group:
+    types: [checks_requested]
 
 jobs:
   test:
