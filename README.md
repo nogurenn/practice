@@ -1,16 +1,13 @@
-# practice-go
+# practice
 
-Programs I write for practice. Visit the python repo [here](https://github.com/nogurenn/practice-python).
+Some of these programs are written for practice.
 
-## Top-level commands
+Some are born from technical exams and interviews. You may treat the programs here as my potential submission(s) to your exam.
 
-```bash
-make runSimpleEventWorker
+## Structure
 
-# ...
-# go run cmd/main.go
-# [main] 2025/01/26 01:24:06 550e8400-e29b-41d4-a716-446655440003-Alice: {Status: Recalled, Balance: 1000}
-# ...
+Projects are segregated by primary language. In each project (e.g. `golang/project1`), Makefile commands are also present.
 
-make runLeetcode
-```
+Inside `golang/`, for example, you can find "top-level" Makefile commands.
+
+You should be able to run everything with just `make`, Docker + Compose, and simple `env` config for some. Use the project-level Makefiles as reference.

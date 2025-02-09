@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
-      - 'simple-event-worker/**/*.go'
-      - 'simple-event-worker/**/*.json'
-      - 'simple-event-worker/go.mod'
-      - 'simple-event-worker/go.sum'
+      - 'golang/simple-event-worker/**/*.go'
+      - 'golang/simple-event-worker/**/*.json'
+      - 'golang/simple-event-worker/go.mod'
+      - 'golang/simple-event-worker/go.sum'
       - '.github/workflows/simple-event-worker.yml'
 
 jobs:
@@ -26,8 +26,8 @@ jobs:
           go-version: '1.23.x' 
           cache: true
           cache-dependency-path: |
-            simple-event-worker/go.mod
-            simple-event-worker/go.sum
+            golang/simple-event-worker/go.mod
+            golang/simple-event-worker/go.sum
 
       - name: Install dependencies for simple-event-worker
         run: |
