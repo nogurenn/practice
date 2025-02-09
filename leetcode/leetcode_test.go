@@ -910,3 +910,146 @@ func (suite *ValidateBinarySearchTreeTestSuite) TestApproaches() {
 func TestValidateBinarySearchTreeTestSuite(t *testing.T) {
 	suite.Run(t, new(ValidateBinarySearchTreeTestSuite))
 }
+
+func TestFindMaxConsecutiveOnes(t *testing.T) {
+	testCases := []struct {
+		subtest string
+		nums    []int
+		want    int
+	}{
+		{
+			subtest: "Example 1",
+			nums:    []int{1, 1, 0, 1, 1, 1},
+			want:    3,
+		},
+		{
+			subtest: "Example 2",
+			nums:    []int{1, 0, 1, 1, 0, 1},
+			want:    2,
+		},
+		{
+			subtest: "All Ones",
+			nums:    []int{1, 1, 1, 1, 1, 1},
+			want:    6,
+		},
+		{
+			subtest: "All Zeros",
+			nums:    []int{0, 0, 0, 0, 0, 0},
+			want:    0,
+		},
+		{
+			subtest: "Empty Array",
+			nums:    []int{},
+			want:    0,
+		},
+		{
+			subtest: "Single Element",
+			nums:    []int{1},
+			want:    1,
+		},
+		{
+			subtest: "All Ones",
+			nums:    []int{1, 1, 1, 1, 1, 1},
+			want:    6,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.subtest, func(t *testing.T) {
+			got := leetcode.FindMaxConsecutiveOnes(tc.nums)
+			assert.Equal(t, tc.want, got)
+		})
+	}
+}
+
+func TestFindNumbersWithEvenDigitsLogarithm(t *testing.T) {
+	testCases := []struct {
+		subtest string
+		nums    []int
+		want    int
+	}{
+		{
+			subtest: "Example 1",
+			nums:    []int{12, 345, 2, 6, 7896},
+			want:    2,
+		},
+		{
+			subtest: "Example 2",
+			nums:    []int{555, 901, 482, 1771},
+			want:    1,
+		},
+		{
+			subtest: "Single Element",
+			nums:    []int{123},
+			want:    0,
+		},
+		{
+			subtest: "Empty Array",
+			nums:    []int{},
+			want:    0,
+		},
+		{
+			subtest: "All Even",
+			nums:    []int{12, 34, 56, 78},
+			want:    4,
+		},
+		{
+			subtest: "All Odd",
+			nums:    []int{1, 3, 5, 7, 9},
+			want:    0,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.subtest, func(t *testing.T) {
+			got := leetcode.FindNumbersWithEvenDigitsLogarithm(tc.nums)
+			assert.Equal(t, tc.want, got)
+		})
+	}
+}
+
+func TestSquaresOfSortedArray(t *testing.T) {
+	testCases := []struct {
+		subtest string
+		nums    []int
+		want    []int
+	}{
+		{
+			subtest: "Example 1",
+			nums:    []int{-4, -1, 0, 3, 10},
+			want:    []int{0, 1, 9, 16, 100},
+		},
+		{
+			subtest: "Example 2",
+			nums:    []int{-7, -3, 2, 3, 11},
+			want:    []int{4, 9, 9, 49, 121},
+		},
+		{
+			subtest: "Single Element",
+			nums:    []int{5},
+			want:    []int{25},
+		},
+		{
+			subtest: "Empty Array",
+			nums:    []int{},
+			want:    []int{},
+		},
+		{
+			subtest: "All Negative",
+			nums:    []int{-5, -3, -1},
+			want:    []int{1, 9, 25},
+		},
+		{
+			subtest: "All Positive",
+			nums:    []int{1, 3, 5},
+			want:    []int{1, 9, 25},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.subtest, func(t *testing.T) {
+			got := leetcode.SquaresOfSortedArrayTwoPointers(tc.nums)
+			assert.Equal(t, tc.want, got)
+		})
+	}
+}
