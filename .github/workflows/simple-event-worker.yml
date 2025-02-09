@@ -31,11 +31,11 @@ jobs:
 
       - name: Install dependencies for simple-event-worker
         run: |
-          cd simple-event-worker
+          cd golang/simple-event-worker
           go mod tidy
           go mod download
 
       - name: Run Tests for simple-event-worker
         run: |
-          cd simple-event-worker
+          cd golang/simple-event-worker
           go test ./...
