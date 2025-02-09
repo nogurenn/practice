@@ -1,4 +1,4 @@
-name: Test leetcode
+name: Test golang/leetcode
 
 on:
   workflow_dispatch:

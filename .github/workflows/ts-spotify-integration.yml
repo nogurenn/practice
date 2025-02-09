@@ -8,7 +8,7 @@ on:
       - 'typescript/spotify-integration/**/*.json'
       - 'typescript/spotify-integration/package.json'
       - 'typescript/spotify-integration/package-lock.json'
-      - '.github/workflows/typescript/spotify-integration.yml'
+      - '.github/workflows/ts-spotify-integration.yml'
   merge_group:
     types: [checks_requested]
 
@@ -27,8 +27,6 @@ jobs:
         with:
           node-version: '22.x'
           cache: 'npm'
-
-      - name: Install dependencies for spotify-integration
         run: |
           cd typescript/spotify-integration
           npm install
