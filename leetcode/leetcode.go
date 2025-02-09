@@ -2,6 +2,7 @@ package leetcode
 
 import (
 	"container/list"
+	"math"
 
 	mapset "github.com/deckarep/golang-set/v2"
 )
@@ -686,4 +687,57 @@ func InorderTraversalIterative(root *TreeNode) []int {
 	}
 
 	return order
+}
+
+func FindMaxConsecutiveOnes(nums []int) int {
+	maxCount, count := 0, 0
+	for _, num := range nums {
+		if num == 1 {
+			count++
+		} else {
+			maxCount = max(maxCount, count)
+			count = 0
+		}
+	}
+	return max(maxCount, count)
+}
+
+// #1295 Find Numbers with Even Number of Digits
+func FindNumbersWithEvenDigitsLogarithm(nums []int) int {
+	// Given a positive integer x, the number of digits in x is ⌊log10(x)⌋+1.
+	count := 0
+	for _, num := range nums {
+		if int(math.Log10(float64(num)))%2 == 1 {
+			count++
+		}
+	}
+	return count
+}
+
+// #977 Squares of a Sorted Array
+func SquaresOfSortedArrayTwoPointers(nums []int) []int {
+	intAbs := func(a int) int {
+		if a < 0 {
+			return -a
+		}
+		return a
+	}
+
+	n := len(nums)
+	squares := make([]int, n)
+
+	left, right := 0, n-1
+	for i := n - 1; i >= 0; i-- {
+		var squareRoot int // sqrt(9) = 3. We are looking for `3`.
+		if intAbs(nums[left]) < intAbs(nums[right]) {
+			squareRoot = nums[right]
+			right--
+		} else {
+			squareRoot = nums[left]
+			left++
+		}
+		squares[i] = squareRoot * squareRoot
+	}
+
+	return squares
 }
