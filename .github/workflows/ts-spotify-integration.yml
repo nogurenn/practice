@@ -8,7 +8,7 @@ on:
       - 'typescript/spotify-integration/**/*.json'
       - 'typescript/spotify-integration/package.json'
       - 'typescript/spotify-integration/package-lock.json'
-      - '.github/workflows/typescript/spotify-integration.yml'
+      - '.github/workflows/ts-spotify-integration.yml'
   merge_group:
     types: [checks_requested]
 
