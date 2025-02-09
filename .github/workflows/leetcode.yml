@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
-      - 'leetcode/**/*.go'
+      - 'golang/leetcode/**/*.go'
       - '.github/workflows/leetcode.yml'
 
 jobs:
@@ -23,16 +23,16 @@ jobs:
           go-version: '1.23.x'
           cache: true
           cache-dependency-path: |
-            leetcode/go.mod
-            leetcode/go.sum
+            golang/leetcode/go.mod
+            golang/leetcode/go.sum
 
       - name: Install dependencies for leetcode
         run: |
-          cd leetcode
+          cd golang/leetcode
           go mod tidy
           go mod download
 
       - name: Run Tests for leetcode
         run: |
-          cd leetcode
+          cd golang/leetcode
           go test ./...
