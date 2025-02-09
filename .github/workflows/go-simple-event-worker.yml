@@ -1,4 +1,4 @@
-name: Test simple-event-worker
+name: Test golang/simple-event-worker
 
 on:
   workflow_dispatch:
