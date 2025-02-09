@@ -9,6 +9,8 @@ on:
       - 'golang/simple-event-worker/go.mod'
       - 'golang/simple-event-worker/go.sum'
       - '.github/workflows/simple-event-worker.yml'
+  merge_group:
+    types: [checks_requested]
 
 jobs:
   test:
