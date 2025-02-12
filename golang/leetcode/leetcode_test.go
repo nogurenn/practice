@@ -34,7 +34,6 @@ func TestLRUCache(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.subtest, func(t *testing.T) {
-			t.Errorf("items: %v", tc.items)
 			got := leetcode.LRUCache(tc.items)
 			assert.Equal(t, tc.want, got)
 		})
