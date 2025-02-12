@@ -7,6 +7,31 @@ import (
 	mapset "github.com/deckarep/golang-set/v2"
 )
 
+func LRUCache(arr []string) []string {
+	cache := list.New()
+	memo := make(map[string]*list.Element)
+	for _, val := range arr {
+		if node, ok := memo[val]; ok {
+			cache.MoveToBack(node)
+		} else {
+			if cache.Len() < 5 {
+				memo[val] = cache.PushBack(val)
+			} else {
+				delete(memo, cache.Front().Value.(string))
+				cache.Remove(cache.Front())
+				memo[val] = cache.PushBack(val)
+			}
+		}
+	}
+
+	output := make([]string, 0, cache.Len())
+	for node := cache.Front(); node != nil; node = node.Next() {
+		output = append(output, node.Value.(string))
+	}
+
+	return output
+}
+
 // #1 Two Sum
 func TwoSum(nums []int, target int) []int {
 	hashmap := make(map[int]int)

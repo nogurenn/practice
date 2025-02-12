@@ -9,6 +9,38 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
+func TestLRUCache(t *testing.T) {
+	testCases := []struct {
+		subtest string
+		items   []string
+		want    []string
+	}{
+		{
+			subtest: "Example 1",
+			items:   []string{"A", "B", "C", "B", "A"},
+			want:    []string{"C", "B", "A"},
+		},
+		{
+			subtest: "Example 2",
+			items:   []string{},
+			want:    []string{},
+		},
+		{
+			subtest: "Example 3",
+			items:   []string{"A", "B", "C", "A", "D", "Z", "D"},
+			want:    []string{"B", "C", "A", "Z", "D"},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.subtest, func(t *testing.T) {
+			t.Errorf("items: %v", tc.items)
+			got := leetcode.LRUCache(tc.items)
+			assert.Equal(t, tc.want, got)
+		})
+	}
+}
+
 func TestTwoSum(t *testing.T) {
 	testCases := []struct {
 		subtest string
