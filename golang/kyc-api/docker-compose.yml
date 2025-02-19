@@ -1,0 +1,58 @@
+services:
+  producer:
+    build:
+      context: .
+      args:
+        TARGET_APP: producer
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+  
+  test:
+    build:
+      context: .
+      dockerfile: ./scripts/tests.Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+
+  testIntegration:
+    build:
+      context: .
+      dockerfile: ./scripts/tests.Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    command: ["go", "test", "--tags=integration", "-v", "./internal/..."]
+
+  db:
+    image: postgres:17
+    env_file:
+      - .env
+    restart: always
+
+  flyway:
+    image: flyway/flyway:11.1
+    env_file:
+      - .env
+    volumes:
+      - ./scripts/db/migrations:/flyway/sql
+    depends_on:
+      - db
+    command: -url=jdbc:postgresql://db:$POSTGRES_PORT/kyc_api -user=$POSTGRES_USER -password=$POSTGRES_PASSWORD migrate
+  
+  mockery:
+    image: vektra/mockery:v2.50
+    env_file:
+      - .env
+    volumes:
+      - .:/app/src
+      - ./scripts/.mockery.yaml:/app/.mockery.yaml
+    working_dir: /app/src
