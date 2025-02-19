@@ -2,7 +2,7 @@ producer:
 	docker-compose up --build --force-recreate --no-deps producer
 
 up:
-	docker-compose up -d db
+	docker-compose up kafka producer
 .PHONY: up
 
 down:

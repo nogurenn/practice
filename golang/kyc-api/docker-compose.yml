@@ -1,3 +1,7 @@
+networks:
+  app-tier:
+    driver: bridge
+
 services:
   producer:
     build:
@@ -10,6 +14,8 @@ services:
       - "3000:3000"
     volumes:
       - .:/app
+    networks:
+      - app-tier
   
   test:
     build:
@@ -28,15 +34,33 @@ services:
       - .env
     volumes:
       - .:/app
+    networks:
+      - app-tier
     depends_on:
       - db
     command: ["go", "test", "--tags=integration", "-v", "./internal/..."]
+
+
+  kafka:
+    image: 'bitnami/kafka:latest'
+    networks:
+      - app-tier
+    environment:
+      - KAFKA_CFG_NODE_ID=0
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true # Enable auto topic creation for testing convenience
 
   db:
     image: postgres:17
     env_file:
       - .env
     restart: always
+    networks:
+      - app-tier
 
   flyway:
     image: flyway/flyway:11.1
@@ -44,6 +68,8 @@ services:
       - .env
     volumes:
       - ./scripts/db/migrations:/flyway/sql
+    networks:
+      - app-tier
     depends_on:
       - db
     command: -url=jdbc:postgresql://db:$POSTGRES_PORT/kyc_api -user=$POSTGRES_USER -password=$POSTGRES_PASSWORD migrate
