@@ -21,20 +21,11 @@ import (
 func main() {
 	slog.Info("Hello, Producer!")
 
-	// to create topics when auto.create.topics.enable='true'
-	time.Sleep(5 * time.Second)
-	conn, err := kafka.DialLeader(context.Background(), "tcp", "kafka:9092", "kyc-verification-requests", 0)
-	if err != nil {
-		panic(err.Error())
-	}
-	conn.Close()
-
 	kafkaWriter := &kafka.Writer{
-		Addr:                   kafka.TCP("kafka:9092"),
-		Topic:                  "kyc-verification-requests",
-		RequiredAcks:           kafka.RequireOne,
-		MaxAttempts:            3,
-		AllowAutoTopicCreation: true,
+		Addr:         kafka.TCP("kafka-broker-1:29092", "kafka-broker-2:29092", "kafka-broker-3:29092"),
+		Topic:        "kyc-verification-requests",
+		RequiredAcks: kafka.RequireOne,
+		MaxAttempts:  3,
 	}
 
 	// Create a list of static users to seed the KYC verification requests from consistent user data.
@@ -53,7 +44,6 @@ func main() {
 		case <-newVerificationRequestTicker.C:
 			pickedUser := users[rand.IntN(len(users))]
 			newRequest := generateRandomKYCVerificationRequest(pickedUser)
-			// slog.Info(fmt.Sprintf("Generated new KYC verification request: %#v\n", newRequest))
 
 			var buf bytes.Buffer
 			err := json.NewEncoder(&buf).Encode(newRequest)
