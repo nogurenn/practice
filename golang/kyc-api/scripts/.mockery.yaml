@@ -1,0 +1,12 @@
+with-expecter: True
+# For the mocks directory, we need to replace the internal package with internal_ to avoid conflict with the special package name
+dir: mocks/{{ replaceAll .InterfaceDirRelative "internal" "internal_" }} 
+mockname: "{{.InterfaceName}}"
+outpkg: "{{.PackageName}}"
+filename: "{{.InterfaceName}}.go"
+all: True
+issue-845-fix: True
+packages:
+  github.com/nogurenn/practice/golang/kyc-api:
+    config:
+      recursive: True

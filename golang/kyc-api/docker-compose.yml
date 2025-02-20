@@ -1,0 +1,147 @@
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  producer:
+    build:
+      context: .
+      args:
+        TARGET_APP: producer
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    networks:
+      - app-tier
+  
+  test:
+    build:
+      context: .
+      dockerfile: ./scripts/tests.Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:17
+    env_file:
+      - .env
+    restart: always
+    networks:
+      - app-tier
+
+  flyway:
+    image: flyway/flyway:11.1
+    env_file:
+      - .env
+    volumes:
+      - ./scripts/db/migrations:/flyway/sql
+    networks:
+      - app-tier
+    depends_on:
+      - db
+    command: -url=jdbc:postgresql://db:$POSTGRES_PORT/kyc_api -user=$POSTGRES_USER -password=$POSTGRES_PASSWORD migrate
+  
+  mockery:
+    image: vektra/mockery:v2.50
+    env_file:
+      - .env
+    volumes:
+      - .:/app/src
+      - ./scripts/.mockery.yaml:/app/.mockery.yaml
+    working_dir: /app/src
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    networks:
+      - app-tier
+    ports:
+      - 8085:8080
+    environment:
+      DYNAMIC_CONFIG_ENABLED: true
+      KAFKA_CLUSTERS_0_NAME: kyc-api
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-broker-1:29092 #,kafka-broker-2:29092,kafka-broker-3:29092
+      LOGGING_LEVEL_ROOT: warn
+      LOGGING_LEVEL_COM_PROVECTUS: warn
+
+  kafka-controller-1:
+    image: &kafka-image confluentinc/cp-kafka:7.9.0
+    container_name: kafka-controller-1
+    env_file:
+      - scripts/kafka-controller.env
+    networks:
+      - app-tier
+    environment:
+      KAFKA_NODE_ID: 1
+
+  kafka-controller-2:
+    image: &kafka-image confluentinc/cp-kafka:7.9.0
+    container_name: kafka-controller-2
+    env_file:
+      - scripts/kafka-controller.env
+    networks:
+      - app-tier
+    environment:
+      KAFKA_NODE_ID: 2
+
+  kafka-controller-3:
+    image: &kafka-image confluentinc/cp-kafka:7.9.0
+    container_name: kafka-controller-3
+    env_file:
+      - scripts/kafka-controller.env
+    networks:
+      - app-tier
+    environment:
+      KAFKA_NODE_ID: 3
+
+  kafka-broker-1:
+    image: *kafka-image
+    container_name: kafka-broker-1
+    env_file:
+      - scripts/kafka-broker.env
+    networks:
+      - app-tier
+    environment:
+      KAFKA_NODE_ID: 4
+
+  kafka-broker-2:
+    image: *kafka-image
+    container_name: kafka-broker-2
+    env_file:
+      - scripts/kafka-broker.env
+    networks:
+      - app-tier
+    environment:
+      KAFKA_NODE_ID: 5
+
+  kafka-broker-3:
+    image: *kafka-image
+    container_name: kafka-broker-3
+    env_file:
+      - scripts/kafka-broker.env
+    networks:
+      - app-tier
+    environment:
+      KAFKA_NODE_ID: 6
+
+  init-kafka:
+    image: *kafka-image
+    networks:
+      - app-tier
+    depends_on:
+      - kafka-controller-1
+      - kafka-controller-2
+      - kafka-controller-3
+      - kafka-broker-1
+      - kafka-broker-2
+      - kafka-broker-3
+    volumes:
+      - ./scripts/init-kafka-topics.sh:/init-kafka-topics.sh
+    entrypoint: [ '/bin/sh', '-c' ]
+    command: /init-kafka-topics.sh
+      
